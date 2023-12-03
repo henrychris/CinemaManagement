@@ -9,10 +9,10 @@ public class ApiResponse<T>(T? data, string message, bool success)
         WriteIndented = true
     };
 
-    public bool Success { get; set; } = success;
-    public string Message { get; set; } = message;
-    public string Note { get; set; } = "N/A";
-    public T? Data { get; set; } = data;
+    public bool Success { get; init; } = success;
+    public string Message { get; init; } = message;
+    public string Note { get; init; } = "N/A";
+    public T? Data { get; init; } = data;
 
     public string ToJsonString()
     {

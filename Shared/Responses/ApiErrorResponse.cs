@@ -2,16 +2,16 @@
 
 namespace Shared.Responses;
 
-public class ApiErrorResponse<T>(T errors, string message)
+public class ApiErrorResponse(List<ApiError> errors, string message)
 {
     private readonly JsonSerializerOptions _jsonSerializerOptions = new()
     {
         WriteIndented = true
     };
 
-    public bool Success { get; set; }
-    public string Message { get; set; } = message;
-    public T Errors { get; set; } = errors;
+    public bool Success { get; init; }
+    public string Message { get; init; } = message;
+    public List<ApiError> Errors { get; init; } = errors;
 
     public string ToJsonString()
     {
