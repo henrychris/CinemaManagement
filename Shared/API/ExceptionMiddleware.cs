@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using Shared.Responses;
-using Shared.ServiceErrors;
 
 namespace Shared.API;
 
@@ -45,12 +44,12 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
         context.Response.ContentType = "application/problem+json";
         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-        var errors = new List<object>
+        var errors = new List<ApiError>
         {
-            new { GenericErrors.SystemError.Code, GenericErrors.SystemError.Description }
+            new() { Code = "System.Error", Description = "Something went wrong. Please reach out to an admin." }
         };
 
-        var response = new ApiErrorResponse<object>(errors, GenericErrors.SystemError.Description);
+        var response = new ApiErrorResponse(errors, "Something went wrong. Please reach out to an admin.");
         return context.Response.WriteAsync(response.ToJsonString());
     }
 }
