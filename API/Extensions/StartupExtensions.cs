@@ -1,7 +1,11 @@
 ﻿using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using API.Data;
 using API.Models.Domain;
 using API.Models.Enums;
+using API.Services;
+using API.Services.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -145,7 +149,21 @@ public static class StartupExtensions
         services.AddAuthorization();
     }
 
+    private static void SetupJsonOptions(this IServiceCollection services)
+    {
+        services.Configure<JsonOptions>(jsonOptions =>
+        {
+            jsonOptions.JsonSerializerOptions.WriteIndented = false;
+            jsonOptions.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+            jsonOptions.JsonSerializerOptions.ReadCommentHandling = JsonCommentHandling.Skip;
+            jsonOptions.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            jsonOptions.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+        });
+    }
+
     private static void RegisterServices(this IServiceCollection services)
     {
+        services.AddScoped<ICurrentUser, CurrentUser>();
     }
 }
