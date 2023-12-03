@@ -32,6 +32,11 @@ public static class DbExtensions
 
 
         var dbContext = services.BuildServiceProvider().GetRequiredService<T>();
+        if (env == Environments.Development)
+        {
+            dbContext.Database.EnsureCreated();
+        }
+
         dbContext.Database.Migrate();
     }
 
