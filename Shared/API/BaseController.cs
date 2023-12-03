@@ -10,6 +10,9 @@ namespace Shared.API;
 [ApiController]
 [TypeFilter(typeof(CustomValidationFilter))]
 [Route("api/[controller]")]
+[ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
+[ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status404NotFound)]
+[ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status500InternalServerError)]
 public abstract class BaseController : ControllerBase
 {
     /// <summary>
@@ -40,8 +43,8 @@ public abstract class BaseController : ControllerBase
             _ => StatusCodes.Status500InternalServerError
         };
 
-        var finalErrors = errors.Select(x => new { x.Code, x.Description }).ToList();
-        var problemDetails = new ApiErrorResponse<object>(finalErrors, errorMessage);
+        var finalErrors = errors.Select(_ => new ApiError()).ToList();
+        var problemDetails = new ApiErrorResponse(finalErrors, errorMessage);
         return new ObjectResult(problemDetails)
         {
             StatusCode = statusCode
