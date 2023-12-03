@@ -12,20 +12,25 @@ public class CustomValidationFilter : IActionFilter
         if (context.ModelState.IsValid) return;
 
         // Create a custom response
-        var customErrorResponse = new ApiErrorResponse<object>(
+        var customErrorResponse = new ApiErrorResponse(
             context.ModelState
-                .Where(x => x.Value is { Errors.Count: > 0 })
+                .Where(x => x.Value!.Errors.Count > 0)
                 .SelectMany(kvp =>
-                    kvp.Value?.Errors.Select(e => new { Code = kvp.Key, Description = e.ErrorMessage })!)
-                .ToList(),
-            "One or more validation errors occured."
+                    kvp.Value!.Errors.Select(e => new ApiError
+                    {
+                        Code = kvp.Key,
+                        Description = e.ErrorMessage
+                    })
+                ).ToList(),
+            "One or more validation errors occurred."
         );
 
         context.Result = new ObjectResult(customErrorResponse)
         {
-            StatusCode = 400,
+            StatusCode = StatusCodes.Status400BadRequest
         };
     }
+
 
     public void OnActionExecuted(ActionExecutedContext context)
     {
