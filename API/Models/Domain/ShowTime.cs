@@ -15,12 +15,12 @@ public class ShowTime
 
     public Movie Movie { get; set; } = null!;
 
-    [Key, MaxLength(DomainConstants.MaxIdLength)]
+    [MaxLength(DomainConstants.MaxIdLength)]
     public required string MovieId { get; set; }
 
     public Theater Theater { get; set; } = null!;
 
-    [Key, MaxLength(DomainConstants.MaxIdLength)]
+    [MaxLength(DomainConstants.MaxIdLength)]
     public required string TheatreId { get; set; }
 
     public List<Seat> Seats { get; set; } = [];

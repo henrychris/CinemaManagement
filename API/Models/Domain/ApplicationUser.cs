@@ -20,5 +20,5 @@ public class ApplicationUser : IdentityUser
     /// Can be either Admin or User.
     /// </summary>
     [MaxLength(DomainConstants.MaxEnumLength)]
-    public required string Role { get; set; } = UserRoles.User.ToString();
+    public required string Role { get; set; } = UserRoles.User;
 }

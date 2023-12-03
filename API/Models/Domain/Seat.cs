@@ -17,7 +17,12 @@ public class Seat
     public required string SeatNumber { get; set; }
 
     public Theater Theater { get; set; } = null!;
+
+    [MaxLength(DomainConstants.MaxIdLength)]
     public required string TheatreId { get; set; }
+
     public ShowTime ShowTime { get; set; } = null!;
+
+    [MaxLength(DomainConstants.MaxIdLength)]
     public required string ShowtimeId { get; set; }
 }
