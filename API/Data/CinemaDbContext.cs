@@ -11,4 +11,9 @@ public class CinemaDbContext(DbContextOptions<CinemaDbContext> options) : Identi
         base.OnModelCreating(modelBuilder);
         modelBuilder.HasDefaultSchema("CinemaDb");
     }
+
+    public DbSet<Movie> Movies { get; set; } = null!;
+    public DbSet<Seat> Seats { get; set; } = null!;
+    public DbSet<ShowTime> ShowTimes { get; set; } = null!;
+    public DbSet<Theater> Theaters { get; set; } = null!;
 }
