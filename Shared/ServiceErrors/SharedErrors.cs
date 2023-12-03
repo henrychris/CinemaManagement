@@ -35,16 +35,6 @@ public static class SharedErrors<T>
         code: $"{typeof(T).Name}.MissingLastName",
         description: "Last name is required.");
 
-    public static Error MissingAddress => Error.Validation(
-        code: $"{typeof(T).Name}.MissingAddress",
-        description: $"The {typeof(T).Name.ToLower()} has no address.");
-
-    public static Error InvalidAddress => Error.Validation(
-        code: $"{typeof(T).Name}.InvalidAddress",
-        description:
-        $"The {typeof(T).Name.ToLower()} address must have at least {DomainConstants.MinAddressLength} characters" +
-        $" and at most {DomainConstants.MaxAddressLength} characters.");
-
     public static Error MissingEmailAddress => Error.Validation(
         code: $"{typeof(T).Name}.MissingEmailAddress",
         description: "The email address is missing.");
