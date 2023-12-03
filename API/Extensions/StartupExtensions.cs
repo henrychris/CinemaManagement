@@ -6,6 +6,7 @@ using API.Models.Domain;
 using API.Models.Enums;
 using API.Services;
 using API.Services.Contracts;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,8 @@ public static class StartupExtensions
         services.SetupMsIdentity();
         services.SetupAuthentication();
         services.RegisterServices();
+        services.SetupJsonOptions();
+        services.AddFeatures();
     }
 
     private static void ConfigureSettings<T>(IServiceCollection services, IConfiguration? configuration)
@@ -165,5 +168,12 @@ public static class StartupExtensions
     private static void RegisterServices(this IServiceCollection services)
     {
         services.AddScoped<ICurrentUser, CurrentUser>();
+    }
+
+    private static void AddFeatures(this IServiceCollection services)
+    {
+        var assemblyToScan = typeof(Program).Assembly;
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assemblyToScan));
+        services.AddValidatorsFromAssembly(assemblyToScan);
     }
 }
