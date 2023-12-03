@@ -85,7 +85,6 @@ public class RegisterRequestHandler(
         var tokenHandler = new JwtSecurityTokenHandler();
         var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.SecretKey!));
 
-
         var claims = new List<Claim>
         {
             new(JwtClaims.Email, emailAddress),
