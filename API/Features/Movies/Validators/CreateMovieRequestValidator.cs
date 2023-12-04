@@ -7,9 +7,6 @@ namespace API.Features.Movies.Validators;
 
 public class CreateMovieRequestValidator : AbstractValidator<CreateMovieRequest>
 {
-    private readonly int MinimumRating = 1;
-    private readonly int MaximumRating = 10;
-
     public CreateMovieRequestValidator()
     {
         RuleFor(x => x).NotEmpty();
@@ -30,13 +27,14 @@ public class CreateMovieRequestValidator : AbstractValidator<CreateMovieRequest>
             .NotEmpty();
 
         RuleFor(x => x.Genres)
+            .NotEmpty()
             .Must(AreAllGenresValid)
-            .WithMessage("These are the valid genres: " + string.Join(", ", UserRoles.AllRoles));
+            .WithMessage("These are the valid genres: " + string.Join(", ", Genres.AllGenres));
 
         RuleFor(x => x.Rating)
             .NotEmpty()
-            .GreaterThanOrEqualTo(MinimumRating)
-            .LessThanOrEqualTo(MaximumRating);
+            .GreaterThanOrEqualTo(DomainConstants.MinimumRating)
+            .LessThanOrEqualTo(DomainConstants.MaximumRating);
 
         RuleFor(x => x.Director)
             .NotEmpty()
