@@ -10,7 +10,7 @@ using Shared.ServiceErrors;
 
 namespace CinemaManagement.API.Tests.IntegrationTests.Features.Authentication;
 
-public class AuthenticationControllerTests : IntegrationTest
+public class AuthControllerTests : IntegrationTest
 {
     [Test]
     public async Task Register_ValidRequestBody_ReturnsHttpOK()
@@ -29,7 +29,7 @@ public class AuthenticationControllerTests : IntegrationTest
                 )).Generate();
 
         // Act
-        var act = await TestClient.PostAsJsonAsync("api/Auth/register", createUserRequest);
+        var act = await TestClient.PostAsJsonAsync("Auth/register", createUserRequest);
 
         // Assert
         act.EnsureSuccessStatusCode();
@@ -60,7 +60,7 @@ public class AuthenticationControllerTests : IntegrationTest
                 )).Generate();
 
         // Act
-        var act = await TestClient.PostAsJsonAsync("api/Auth/register", createUserRequest);
+        var act = await TestClient.PostAsJsonAsync("Auth/register", createUserRequest);
 
         // Assert
         act.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -78,7 +78,7 @@ public class AuthenticationControllerTests : IntegrationTest
         var loginRequest = new LoginRequest(AuthEmailAddress, AuthPassword);
 
         // Act
-        var act = await TestClient.PostAsJsonAsync("api/Auth/Login", loginRequest);
+        var act = await TestClient.PostAsJsonAsync("Auth/Login", loginRequest);
 
         // Assert
         act.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -98,7 +98,7 @@ public class AuthenticationControllerTests : IntegrationTest
         var loginRequest = new LoginRequest(AuthEmailAddress, "WrongPassword");
 
         // Act
-        var act = await TestClient.PostAsJsonAsync("api/Auth/Login", loginRequest);
+        var act = await TestClient.PostAsJsonAsync("Auth/Login", loginRequest);
 
         // Assert
         act.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
@@ -116,10 +116,10 @@ public class AuthenticationControllerTests : IntegrationTest
         var loginRequest = new LoginRequest(AuthEmailAddress, "WrongPassword");
 
         // Act
-        await TestClient.PostAsJsonAsync("api/Auth/Login", loginRequest);
-        await TestClient.PostAsJsonAsync("api/Auth/Login", loginRequest);
-        await TestClient.PostAsJsonAsync("api/Auth/Login", loginRequest);
-        var act = await TestClient.PostAsJsonAsync("api/Auth/Login", loginRequest);
+        await TestClient.PostAsJsonAsync("Auth/Login", loginRequest);
+        await TestClient.PostAsJsonAsync("Auth/Login", loginRequest);
+        await TestClient.PostAsJsonAsync("Auth/Login", loginRequest);
+        var act = await TestClient.PostAsJsonAsync("Auth/Login", loginRequest);
 
         // Assert
         act.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
