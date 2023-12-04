@@ -8,7 +8,7 @@ public static class MiddlewareExtensions
     {
         app.RegisterSwagger();
         app.RegisterMiddleware();
-        // todo: seed database
+        app.SeedDatabase();
     }
 
     private static void RegisterSwagger(this WebApplication app)
