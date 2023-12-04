@@ -80,7 +80,7 @@ public class AuthControllerTests : IntegrationTest
         response!.Errors.Should().NotBeNull();
         response.Success.Should().BeFalse();
     }
-    
+
     [Test]
     public async Task Login_ThreeFailedLogins_ReturnsHttpUnauthorizedAndLockedOut()
     {
@@ -99,6 +99,23 @@ public class AuthControllerTests : IntegrationTest
 
         var response = await act.Content.ReadFromJsonAsync<ApiErrorResponse>();
         response!.Errors[0].Code.Should().Be(Errors.User.IsLockedOut.Code);
+        response.Errors.Should().NotBeNull();
+        response.Success.Should().BeFalse();
+    }
+
+    [Test]
+    public async Task Login_UserNotRegistered_ReturnsHttpUnauthorized()
+    {
+        var loginRequest = new LoginRequest(AuthEmailAddress, AuthPassword);
+
+        // Act
+        var act = await TestClient.PostAsJsonAsync("Auth/Login", loginRequest);
+
+        // Assert
+        act.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+
+        var response = await act.Content.ReadFromJsonAsync<ApiErrorResponse>();
+        response!.Errors[0].Code.Should().Be(Errors.Auth.LoginFailed.Code);
         response.Errors.Should().NotBeNull();
         response.Success.Should().BeFalse();
     }
