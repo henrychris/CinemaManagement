@@ -4,36 +4,31 @@ using Shared;
 
 namespace API.Models.Domain;
 
-public class Movie
+public class Movie(
+    string title,
+    string description,
+    int durationInMinutes,
+    DateTime releaseDate,
+    string[] genres,
+    int rating,
+    string director)
 {
-    public Movie(string title, string description, int durationInMinutes, DateTime releaseDate, string[] genres, int rating, string director)
-    {
-        Title = title;
-        Description = description;
-        DurationInMinutes = durationInMinutes;
-        ReleaseDate = releaseDate;
-        Genres = genres;
-        Director = director;
-        Rating = rating;
-        MovieId = GenerateMovieId(title, releaseDate);
-    }
-
     [Key, MaxLength(DomainConstants.MaxIdLength)]
-    public required string MovieId { get; init; }
+    public string MovieId { get; init; } = GenerateMovieId(title, releaseDate);
 
-    [MaxLength(DomainConstants.MaxLength)] public required string Title { get; set; }
-    [MaxLength(DomainConstants.MaxLength)] public required string Description { get; set; }
-    [MaxLength(DomainConstants.MaxLength)] public required string Director { get; set; }
+    [MaxLength(DomainConstants.MaxLength)] public string Title { get; set; } = title;
+    [MaxLength(DomainConstants.MaxLength)] public string Description { get; set; } = description;
+    [MaxLength(DomainConstants.MaxLength)] public string Director { get; set; } = director;
 
-    public required int DurationInMinutes { get; set; }
-    public required int Rating { get; set; }
-    public required string[] Genres { get; set; }
-    public required DateTime ReleaseDate { get; set; }
+    public int DurationInMinutes { get; set; } = durationInMinutes;
+    public int Rating { get; set; } = rating;
+    public string[] Genres { get; set; } = genres;
+    public DateTime ReleaseDate { get; set; } = releaseDate;
 
     // navigation property
     public List<ShowTime> ShowTimes { get; set; } = [];
 
-    private string GenerateMovieId(string title, DateTime releaseDate)
+    private static string GenerateMovieId(string title, DateTime releaseDate)
     {
         var cleanTitle = RemoveSpecialCharacters(title);
         var formattedReleaseDate = releaseDate.ToString("yyMM");
