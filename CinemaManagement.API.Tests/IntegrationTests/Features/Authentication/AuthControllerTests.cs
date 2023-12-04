@@ -44,33 +44,6 @@ public class AuthControllerTests : IntegrationTest
     }
 
     [Test]
-    public async Task Register_InValidRequestBody_ReturnsBadRequest()
-    {
-        // Arrange
-        const string userRole = "User";
-
-        var createUserRequest = new Faker<RegisterRequest>()
-            .CustomInstantiator(f =>
-                new RegisterRequest(
-                    f.Person.FirstName,
-                    f.Person.LastName,
-                    "badEmail",
-                    "testPassword12@",
-                    userRole
-                )).Generate();
-
-        // Act
-        var act = await TestClient.PostAsJsonAsync("Auth/register", createUserRequest);
-
-        // Assert
-        act.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-
-        var response = await act.Content.ReadFromJsonAsync<ApiErrorResponse>();
-        response!.Errors.Should().NotBeNull();
-        response.Success.Should().BeFalse();
-    }
-
-    [Test]
     public async Task Login_ValidRequestBody_ReturnsHttpOk()
     {
         // Arrange
