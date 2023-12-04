@@ -6,9 +6,9 @@ namespace API.Extensions;
 
 public static class ErrorOrExtensions
 {
-    public static ApiResponse<T> ToSuccessfulApiResponse<T>(this T obj)
+    public static ApiResponse<T> ToSuccessfulApiResponse<T>(this ErrorOr<T> errorOr)
     {
-        return new ApiResponse<T>(data: obj, message: "Success", success: true);
+        return new ApiResponse<T>(data: errorOr.Value, message: "Success", success: true);
     }
 
     /// <summary>
