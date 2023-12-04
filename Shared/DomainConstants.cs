@@ -12,7 +12,8 @@ public static class DomainConstants
 
     public const int MaxRcNumberLength = 15;
 
-    public const int MaxDescriptionLength = 200;
+    public const int MinLength = 3;
+    public const int MaxLength = 450;
 
     public const int MinAddressLength = 3;
     public const int MaxAddressLength = 200;
