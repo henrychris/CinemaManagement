@@ -23,4 +23,7 @@ public static class DomainConstants
 
     public const int MaxJsonLength = 450;
     public const int MaxEnumLength = 20;
+    
+    public const int MinimumRating = 1;
+    public const int MaximumRating = 10;
 }
