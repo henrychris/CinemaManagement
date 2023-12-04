@@ -45,7 +45,11 @@ public abstract class BaseController : ControllerBase
             _ => StatusCodes.Status500InternalServerError
         };
 
-        var finalErrors = errors.Select(_ => new ApiError()).ToList();
+        var finalErrors = errors.Select(x => new ApiError
+        {
+            Code = x.Code,
+            Description = x.Description
+        }).ToList();
         var problemDetails = new ApiErrorResponse(finalErrors, errorMessage);
         return new ObjectResult(problemDetails)
         {
