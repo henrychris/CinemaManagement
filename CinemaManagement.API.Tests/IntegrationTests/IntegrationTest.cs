@@ -39,26 +39,33 @@ public class IntegrationTest
             });
         TestClient = webApplicationFactory.CreateClient(new WebApplicationFactoryClientOptions
         {
-            BaseAddress = new Uri("http://localhost")
+            BaseAddress = new Uri("http://localhost/api/")
         });
     }
 
-    protected async Task AuthenticateAsync()
+    /// <summary>
+    /// Authenticate the current request.
+    /// </summary>
+    /// <remarks>
+    /// You can specify the role by passing user or admin. If none is passed, it defaults to user.
+    /// </remarks>
+    /// <param name="userRole"></param>
+    protected async Task AuthenticateAsync(string userRole = "User")
     {
         TestClient.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue("bearer", await GetJwtAsync());
+            new AuthenticationHeaderValue("bearer", await GetJwtAsync(userRole));
     }
 
-    private async Task<string> GetJwtAsync()
+    private async Task<string> GetJwtAsync(string userRole = "User")
     {
-        var result = await RegisterAsync();
+        var result = await RegisterAsync(userRole);
         return result?.Data?.AccessToken ?? throw new InvalidOperationException("Registration failed.");
     }
 
-    protected async Task<ApiResponse<UserAuthResponse>?> RegisterAsync()
+    protected async Task<ApiResponse<UserAuthResponse>?> RegisterAsync(string userRole = "User")
     {
-        var registerResponse = await TestClient.PostAsJsonAsync("api/Auth/register",
-            new RegisterRequest("test", "user", AuthEmailAddress, AuthPassword, "User"));
+        var registerResponse = await TestClient.PostAsJsonAsync("Auth/register",
+            new RegisterRequest("test", "user", AuthEmailAddress, AuthPassword, userRole));
 
         var result = await registerResponse.Content.ReadFromJsonAsync<ApiResponse<UserAuthResponse>>();
         return result;
