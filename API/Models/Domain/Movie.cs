@@ -6,15 +6,28 @@ namespace API.Models.Domain;
 
 public class Movie
 {
-    
-    [Key, MaxLength(DomainConstants.MaxIdLength)]
-    // todo: use stolen code in mapper class to generate Id from name.
-    public required string MovieId { get; set; }
+    public Movie(string title, string description, int durationInMinutes, DateTime releaseDate, string[] genres, int rating, string director)
+    {
+        Title = title;
+        Description = description;
+        DurationInMinutes = durationInMinutes;
+        ReleaseDate = releaseDate;
+        Genres = genres;
+        Director = director;
+        Rating = rating;
+        MovieId = GenerateMovieId(title, releaseDate);
+    }
 
-    public required string Title { get; set; }
-    public required string Description { get; set; }
+    [Key, MaxLength(DomainConstants.MaxIdLength)]
+    public required string MovieId { get; init; }
+
+    [MaxLength(DomainConstants.MaxLength)] public required string Title { get; set; }
+    [MaxLength(DomainConstants.MaxLength)] public required string Description { get; set; }
+    [MaxLength(DomainConstants.MaxLength)] public required string Director { get; set; }
+
     public required int DurationInMinutes { get; set; }
-    public required string[] Genres { get; set; } = [];
+    public required int Rating { get; set; }
+    public required string[] Genres { get; set; }
     public required DateTime ReleaseDate { get; set; }
 
     // navigation property
@@ -26,6 +39,7 @@ public class Movie
         var formattedReleaseDate = releaseDate.ToString("yyMM");
         return $"{cleanTitle}-{formattedReleaseDate}";
     }
+
     private static string RemoveSpecialCharacters(string str)
     {
         var sb = new StringBuilder();
