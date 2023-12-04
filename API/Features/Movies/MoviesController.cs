@@ -2,7 +2,9 @@
 using API.Extensions;
 using API.Features.Movies.Requests;
 using API.Features.Movies.Responses;
+using API.Models.Enums;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.API;
 using Shared.Responses;
@@ -11,6 +13,7 @@ namespace API.Features.Movies;
 
 public class MoviesController(IMediator mediator) : BaseController
 {
+    [Authorize(Roles = UserRoles.Admin)]
     [HttpPost]
     [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse<CreateMovieResponse>), StatusCodes.Status200OK)]
@@ -39,6 +42,7 @@ public class MoviesController(IMediator mediator) : BaseController
             ReturnErrorResponse);
     }
 
+    [Authorize(Roles = UserRoles.Admin)]
     [HttpPut]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -48,7 +52,8 @@ public class MoviesController(IMediator mediator) : BaseController
         var result = await mediator.Send(request);
         return result.Match(_ => NoContent(), ReturnErrorResponse);
     }
-    
+
+    [Authorize(Roles = UserRoles.Admin)]
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeleteMovie(string id)
