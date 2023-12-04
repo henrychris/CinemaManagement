@@ -12,7 +12,7 @@ namespace API.Features.Movies;
 public class MoviesController(IMediator mediator) : BaseController
 {
     [HttpPost]
-    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse<CreateMovieResponse>), StatusCodes.Status200OK)]
     // todo: authorise with admin role
     public async Task<IActionResult> CreateMovie([FromBody] CreateMovieRequest request)
@@ -27,7 +27,6 @@ public class MoviesController(IMediator mediator) : BaseController
     }
 
     [HttpGet("{id}")]
-    [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(typeof(ApiResponse<GetMovieResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetSingleMovie(string id)
     {
@@ -42,7 +41,8 @@ public class MoviesController(IMediator mediator) : BaseController
 
     [HttpPut]
     [Consumes(MediaTypeNames.Application.Json)]
-    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> UpdateMovie([FromBody] UpdateMovieRequest request)
     {
         var result = await mediator.Send(request);
@@ -50,7 +50,7 @@ public class MoviesController(IMediator mediator) : BaseController
     }
     
     [HttpDelete("{id}")]
-    [ProducesResponseType(typeof(ApiResponse<GetMovieResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeleteMovie(string id)
     {
         var result = await mediator.Send(new DeleteMovieRequest(id));

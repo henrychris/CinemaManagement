@@ -17,6 +17,7 @@ public class AuthController(IMediator mediator) : BaseController
     [AllowAnonymous]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse<UserAuthResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> RegisterAsync([FromBody] RegisterRequest request)
     {

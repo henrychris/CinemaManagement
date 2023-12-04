@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using System.Net.Mime;
+using ErrorOr;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Filters;
@@ -10,7 +11,7 @@ namespace Shared.API;
 [ApiController]
 [TypeFilter(typeof(CustomValidationFilter))]
 [Route("api/[controller]")]
-[ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
+[Produces(MediaTypeNames.Application.Json)]
 [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status404NotFound)]
 [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status500InternalServerError)]
 public abstract class BaseController : ControllerBase
