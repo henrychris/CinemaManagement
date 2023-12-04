@@ -33,7 +33,7 @@ public class LoginRequestHandler(
             return Errors.Auth.LoginFailed;
         }
 
-        var signInResult = await signInManager.CheckPasswordSignInAsync(user, request.Password, false);
+        var signInResult = await signInManager.CheckPasswordSignInAsync(user, request.Password, true);
         if (signInResult.Succeeded)
         {
             logger.LogInformation("User {0} logged in successfully.", user.Id);
