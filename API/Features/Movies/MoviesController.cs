@@ -14,17 +14,16 @@ namespace API.Features.Movies;
 public class MoviesController(IMediator mediator) : BaseController
 {
     [Authorize(Roles = UserRoles.Admin)]
-    [HttpPost]
     [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse<CreateMovieResponse>), StatusCodes.Status200OK)]
-    // todo: authorise with admin role
+    [HttpPost]
     public async Task<IActionResult> CreateMovie([FromBody] CreateMovieRequest request)
     {
         var result = await mediator.Send(request);
 
         return result.Match(
             response => CreatedAtAction(nameof(GetSingleMovie),
-                routeValues: new GetSingleMovieRequest(response.MovieId),
+                routeValues: new { id = response.MovieId },
                 result.ToSuccessfulApiResponse()),
             ReturnErrorResponse);
     }
