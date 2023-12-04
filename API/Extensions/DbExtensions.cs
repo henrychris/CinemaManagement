@@ -95,6 +95,7 @@ public static class DbExtensions
 
         if (IsInMemoryDatabase(context))
         {
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
         }
         else
