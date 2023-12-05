@@ -60,4 +60,18 @@ public class MoviesController(IMediator mediator) : BaseController
         var result = await mediator.Send(new DeleteMovieRequest(id));
         return result.Match(_ => NoContent(), ReturnErrorResponse);
     }
+
+    [Authorize(Roles = UserRoles.Admin)]
+    [HttpGet("all")]
+    [ProducesResponseType(typeof(ApiResponse<PagedResponse<GetMovieResponse>>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllMovies([FromQuery] GetMoviesRequest request)
+    {
+        var result = await mediator.Send(request);
+
+        // If successful, return the event data in an ApiResponse.
+        // If an error occurs, return an error response using the ReturnErrorResponse method.
+        return result.Match(
+            _ => Ok(result.ToSuccessfulApiResponse()),
+            ReturnErrorResponse);
+    }
 }

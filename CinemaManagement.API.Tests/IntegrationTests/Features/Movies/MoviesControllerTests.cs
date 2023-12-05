@@ -3,7 +3,6 @@ using System.Net.Http.Json;
 using API.Features.Movies.Requests;
 using API.Features.Movies.Responses;
 using API.Models.Enums;
-using ErrorOr;
 using FluentAssertions;
 using Shared.Responses;
 
@@ -11,7 +10,8 @@ namespace CinemaManagement.API.Tests.IntegrationTests.Features.Movies;
 
 public class MoviesControllerTests : IntegrationTest
 {
-    private static readonly string[] Genres = ["Crime", "Drama", "History"];
+    private static readonly string[] KotFmGenres = ["Crime", "Drama", "History"];
+    private static readonly string[] OppGenres = ["Drama", "History"];
 
     private static readonly CreateMovieRequest CreateMovieRequest = new(
         "Killers Of The Flower Moon",
@@ -19,9 +19,19 @@ public class MoviesControllerTests : IntegrationTest
         "one by one—until the FBI steps in to unravel the mystery.",
         206,
         new DateTime(2023, 10, 20),
-        Genres,
+        KotFmGenres,
         8,
         "Martin Scorsese"
+    );
+
+    private static readonly CreateMovieRequest CreateOtherMovieRequest = new(
+        "Oppenheimer",
+        "The story of J. Robert Oppenheimer's role in the development of the atomic bomb during World War II.",
+        181,
+        new DateTime(2023, 07, 21),
+        OppGenres,
+        8,
+        "Christopher Nolan"
     );
 
     [Test]
@@ -147,7 +157,7 @@ public class MoviesControllerTests : IntegrationTest
         deleteAct.EnsureSuccessStatusCode();
         deleteAct.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
-    
+
     [Test]
     public async Task DeleteMovie_MovieDoesNotExist_ReturnsNotFound()
     {
@@ -159,5 +169,27 @@ public class MoviesControllerTests : IntegrationTest
 
         // Assert
         deleteAct.StatusCode.Should().Be(HttpStatusCode.NotFound);
+    }
+
+    [Test]
+    public async Task GetAllMovies_MoviesExist_ReturnsListOfMovies()
+    {
+        // Arrange
+        await AuthenticateAsync(UserRoles.Admin);
+
+        // Act
+        var act = await TestClient.PostAsJsonAsync("Movies", CreateMovieRequest);
+        var otherAct = await TestClient.PostAsJsonAsync("Movies", CreateOtherMovieRequest);
+
+        var getAct = await TestClient.GetAsync("Movies/all");
+        var getRes = await getAct.Content.ReadFromJsonAsync<ApiResponse<PagedResponse<GetMovieResponse>>>();
+
+        // Assert
+        act.StatusCode.Should().Be(HttpStatusCode.Created);
+        otherAct.StatusCode.Should().Be(HttpStatusCode.Created);
+        getAct.EnsureSuccessStatusCode();
+        getAct.StatusCode.Should().Be(HttpStatusCode.OK);
+        getRes!.Success.Should().BeTrue();
+        getRes.Data!.TotalCount.Should().Be(2);
     }
 }
