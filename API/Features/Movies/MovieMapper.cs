@@ -14,7 +14,7 @@ public static class MovieMapper
             request.Rating, request.Director);
     }
 
-    public static ErrorOr<GetMovieResponse> ToGetMovieResponse(Movie movie)
+    public static GetMovieResponse ToGetMovieResponse(Movie movie)
     {
         return new GetMovieResponse
         {
