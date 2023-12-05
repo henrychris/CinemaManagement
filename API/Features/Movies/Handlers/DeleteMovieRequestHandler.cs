@@ -22,7 +22,7 @@ public class DeleteMovieRequestHandler(CinemaDbContext context, ILogger<DeleteMo
 
         context.Remove(movie);
         await context.SaveChangesAsync(cancellationToken);
-        logger.LogInformation("Successfully fetched Movie with ID: {0}", request.MovieId);
+        logger.LogInformation("Successfully deleted Movie with ID: {0}", request.MovieId);
         return Result.Deleted;
     }
 }
