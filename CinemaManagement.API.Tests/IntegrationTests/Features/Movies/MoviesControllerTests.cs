@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using API.Features.Movies.Requests;
 using API.Features.Movies.Responses;
 using API.Models.Enums;
+using ErrorOr;
 using FluentAssertions;
 using Shared.Responses;
 
@@ -112,6 +113,7 @@ public class MoviesControllerTests : IntegrationTest
     [Test]
     public async Task GetMovie_MovieExists_ReturnsHttpOk()
     {
+        // Arrange
         await AuthenticateAsync(UserRoles.Admin);
 
         // Act
@@ -122,10 +124,40 @@ public class MoviesControllerTests : IntegrationTest
         var getAct = await TestClient.GetAsync($"Movies/{response!.Data!.MovieId}");
         var getRes = await getAct.Content.ReadFromJsonAsync<ApiResponse<GetMovieResponse>>();
 
-        // Assert
         act.EnsureSuccessStatusCode();
         getAct.EnsureSuccessStatusCode();
         getRes!.Success.Should().BeTrue();
         getRes.Data!.MovieId.Should().Be(response.Data.MovieId);
+    }
+
+    [Test]
+    public async Task DeleteMovie_MovieExists_ReturnsNoContent()
+    {
+        // Arrange
+        await AuthenticateAsync(UserRoles.Admin);
+
+        // Act
+        var act = await TestClient.PostAsJsonAsync("Movies", CreateMovieRequest);
+        var response = await act.Content.ReadFromJsonAsync<ApiResponse<CreateMovieResponse>>();
+
+        var deleteAct = await TestClient.DeleteAsync($"Movies/{response!.Data!.MovieId}");
+
+        // Assert
+        act.EnsureSuccessStatusCode();
+        deleteAct.EnsureSuccessStatusCode();
+        deleteAct.StatusCode.Should().Be(HttpStatusCode.NoContent);
+    }
+    
+    [Test]
+    public async Task DeleteMovie_MovieDoesNotExist_ReturnsNotFound()
+    {
+        // Arrange
+        await AuthenticateAsync(UserRoles.Admin);
+
+        // Act
+        var deleteAct = await TestClient.DeleteAsync($"Movies/MissingId");
+
+        // Assert
+        deleteAct.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 }
