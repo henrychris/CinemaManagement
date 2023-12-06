@@ -1,7 +1,7 @@
 ﻿using ErrorOr;
 using MediatR;
 
-namespace API.Features.Movies.Requests;
+namespace API.Features.Movies.UpdateMovie;
 
 public record UpdateMovieRequest(
     string MovieId,

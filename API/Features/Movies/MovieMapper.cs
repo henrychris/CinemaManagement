@@ -1,7 +1,5 @@
-﻿using API.Features.Movies.Requests;
-using API.Features.Movies.Responses;
+﻿using API.Features.Movies.CreateMovie;
 using API.Models.Domain;
-using ErrorOr;
 
 namespace API.Features.Movies;
 

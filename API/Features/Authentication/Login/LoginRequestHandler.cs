@@ -2,12 +2,10 @@
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
-using API.Features.Authentication.Responses;
 using API.Models.Domain;
 using API.Models.Enums;
 using MediatR;
 using ErrorOr;
-using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

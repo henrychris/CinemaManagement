@@ -2,7 +2,6 @@
 using System.Security.Claims;
 using System.Text;
 using API.Extensions;
-using API.Features.Authentication.Responses;
 using API.Models.Domain;
 using API.Models.Enums;
 using ErrorOr;

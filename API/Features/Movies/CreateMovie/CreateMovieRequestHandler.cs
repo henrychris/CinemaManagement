@@ -1,13 +1,11 @@
 ﻿using API.Data;
 using API.Extensions;
-using API.Features.Movies.Requests;
-using API.Features.Movies.Responses;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Shared.ServiceErrors;
 
-namespace API.Features.Movies.Handlers;
+namespace API.Features.Movies.CreateMovie;
 
 public class CreateMovieRequestHandler(
     CinemaDbContext context,

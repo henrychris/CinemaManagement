@@ -1,7 +1,10 @@
 ﻿using System.Net.Mime;
 using API.Extensions;
-using API.Features.Movies.Requests;
-using API.Features.Movies.Responses;
+using API.Features.Movies.CreateMovie;
+using API.Features.Movies.DeleteMovie;
+using API.Features.Movies.GetAllMovies;
+using API.Features.Movies.GetSingleMovie;
+using API.Features.Movies.UpdateMovie;
 using API.Models.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -64,7 +67,7 @@ public class MoviesController(IMediator mediator) : BaseController
     [Authorize(Roles = UserRoles.Admin)]
     [HttpGet("all")]
     [ProducesResponseType(typeof(ApiResponse<PagedResponse<GetMovieResponse>>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllMovies([FromQuery] GetMoviesRequest request)
+    public async Task<IActionResult> GetAllMovies([FromQuery] GetAllMoviesRequest request)
     {
         var result = await mediator.Send(request);
 

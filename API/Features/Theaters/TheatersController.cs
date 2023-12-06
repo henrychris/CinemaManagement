@@ -1,7 +1,6 @@
 ﻿using API.Extensions;
-using API.Features.Movies.Requests;
-using API.Features.Theaters.Requests;
-using API.Features.Theaters.Responses;
+using API.Features.Theaters.CreateTheater;
+using API.Features.Theaters.GetSingleTheater;
 using API.Models.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

@@ -1,8 +1,7 @@
-﻿using API.Features.Movies.Responses;
-using ErrorOr;
+﻿using ErrorOr;
 using MediatR;
 
-namespace API.Features.Movies.Requests;
+namespace API.Features.Movies.CreateMovie;
 
 public record CreateMovieRequest(
     string Title,

@@ -1,17 +1,16 @@
 ﻿using API.Data;
-using API.Features.Movies.Requests;
-using API.Features.Movies.Responses;
 using API.Models.Domain;
 using MediatR;
 using ErrorOr;
 using Shared.Responses;
+using API.Models.Enums;
 
-namespace API.Features.Movies.Handlers;
+namespace API.Features.Movies.GetAllMovies;
 
-public class GetMoviesRequestHandler(CinemaDbContext context, ILogger<GetMoviesRequestHandler> logger)
-    : IRequestHandler<GetMoviesRequest, ErrorOr<PagedResponse<GetMovieResponse>>>
+public class GetAllMoviesRequestHandler(CinemaDbContext context, ILogger<GetAllMoviesRequestHandler> logger)
+    : IRequestHandler<GetAllMoviesRequest, ErrorOr<PagedResponse<GetMovieResponse>>>
 {
-    public async Task<ErrorOr<PagedResponse<GetMovieResponse>>> Handle(GetMoviesRequest request,
+    public async Task<ErrorOr<PagedResponse<GetMovieResponse>>> Handle(GetAllMoviesRequest request,
         CancellationToken cancellationToken)
     {
         logger.LogInformation("Fetching movies... \nRequest: {0}", request);
@@ -50,7 +49,7 @@ public class GetMoviesRequestHandler(CinemaDbContext context, ILogger<GetMoviesR
         return query;
     }
 
-    private static IQueryable<Movie> ApplyFilters(IQueryable<Movie> query, GetMoviesRequest request)
+    private static IQueryable<Movie> ApplyFilters(IQueryable<Movie> query, GetAllMoviesRequest request)
     {
         if (!string.IsNullOrWhiteSpace(request.Title))
         {

@@ -1,8 +1,8 @@
 ﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using API.Data;
+using API.Features.Authentication;
 using API.Features.Authentication.Register;
-using API.Features.Authentication.Responses;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

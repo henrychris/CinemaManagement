@@ -1,3 +1,3 @@
-﻿namespace API.Features.Theaters.Responses;
+﻿namespace API.Features.Theaters.CreateTheater;
 
 public record CreateTheaterResponse(string TheaterId);

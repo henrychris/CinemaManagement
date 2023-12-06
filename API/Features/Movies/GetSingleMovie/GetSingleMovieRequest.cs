@@ -1,7 +1,6 @@
-﻿using API.Features.Movies.Responses;
-using ErrorOr;
+﻿using ErrorOr;
 using MediatR;
 
-namespace API.Features.Movies.Requests;
+namespace API.Features.Movies.GetSingleMovie;
 
 public record GetSingleMovieRequest(string MovieId) : IRequest<ErrorOr<GetMovieResponse>>;

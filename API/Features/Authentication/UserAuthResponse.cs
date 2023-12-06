@@ -1,4 +1,4 @@
-﻿namespace API.Features.Authentication.Responses;
+﻿namespace API.Features.Authentication;
 
 public class UserAuthResponse
 {

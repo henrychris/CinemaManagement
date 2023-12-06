@@ -1,4 +1,4 @@
-﻿namespace API.Features.Movies.Responses;
+﻿namespace API.Features.Movies;
 
 public class GetMovieResponse
 {

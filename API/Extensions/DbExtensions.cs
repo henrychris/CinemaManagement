@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using API.Data;
-using API.Models.Domain;
 using API.Models.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

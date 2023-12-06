@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
-using API.Features.Theaters.Requests;
-using API.Features.Theaters.Responses;
+using API.Features.Theaters.CreateTheater;
 using API.Models.Enums;
 using FluentAssertions;
 using Shared.Responses;

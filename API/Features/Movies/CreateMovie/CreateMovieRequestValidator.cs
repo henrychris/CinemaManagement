@@ -1,10 +1,9 @@
 ﻿using API.Extensions;
-using API.Features.Movies.Requests;
 using API.Models.Enums;
 using FluentValidation;
 using Shared;
 
-namespace API.Features.Movies.Validators;
+namespace API.Features.Movies.CreateMovie;
 
 public class CreateMovieRequestValidator : AbstractValidator<CreateMovieRequest>
 {

@@ -1,10 +1,9 @@
 ﻿using API.Data;
-using API.Features.Movies.Requests;
 using ErrorOr;
 using MediatR;
 using Shared.ServiceErrors;
 
-namespace API.Features.Movies.Handlers;
+namespace API.Features.Movies.DeleteMovie;
 
 public class DeleteMovieRequestHandler(CinemaDbContext context, ILogger<DeleteMovieRequestHandler> logger)
     : IRequestHandler<DeleteMovieRequest, ErrorOr<Deleted>>

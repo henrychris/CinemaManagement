@@ -1,9 +1,8 @@
-﻿using API.Features.Movies.Requests;
-using API.Models.Enums;
+﻿using API.Models.Enums;
 using FluentValidation;
 using Shared;
 
-namespace API.Features.Movies.Validators;
+namespace API.Features.Movies.UpdateMovie;
 
 public class UpdateMovieRequestValidator : AbstractValidator<UpdateMovieRequest>
 {

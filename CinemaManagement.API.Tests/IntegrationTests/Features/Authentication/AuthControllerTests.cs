@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using API.Features.Authentication;
 using API.Features.Authentication.Login;
 using API.Features.Authentication.Register;
-using API.Features.Authentication.Responses;
 using Bogus;
 using FluentAssertions;
 using Shared.Responses;

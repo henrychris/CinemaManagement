@@ -1,9 +1,8 @@
 ﻿using API.Extensions;
-using API.Features.Theaters.Requests;
 using API.Models.Enums;
 using FluentValidation;
 
-namespace API.Features.Theaters.Validators;
+namespace API.Features.Theaters.CreateTheater;
 
 public class CreateTheaterRequestValidator : AbstractValidator<CreateTheaterRequest>
 {

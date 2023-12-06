@@ -1,7 +1,8 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
-using API.Features.Movies.Requests;
-using API.Features.Movies.Responses;
+using API.Features.Movies;
+using API.Features.Movies.CreateMovie;
+using API.Features.Movies.UpdateMovie;
 using API.Models.Enums;
 using FluentAssertions;
 using Shared.Responses;

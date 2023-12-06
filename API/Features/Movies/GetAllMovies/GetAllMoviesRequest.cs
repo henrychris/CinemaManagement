@@ -1,12 +1,12 @@
-﻿using API.Features.Movies.Responses;
+﻿using API.Models.Enums;
 using ErrorOr;
 using MediatR;
 using Shared.Requests;
 using Shared.Responses;
 
-namespace API.Features.Movies.Requests;
+namespace API.Features.Movies.GetAllMovies;
 
-public class GetMoviesRequest : QueryStringParameters, IRequest<ErrorOr<PagedResponse<GetMovieResponse>>>
+public class GetAllMoviesRequest : QueryStringParameters, IRequest<ErrorOr<PagedResponse<GetMovieResponse>>>
 {
     public string? Title { get; set; }
     public string? Director { get; set; }

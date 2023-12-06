@@ -1,11 +1,9 @@
 ﻿using API.Data;
-using API.Features.Movies.Requests;
-using API.Features.Movies.Responses;
 using ErrorOr;
 using MediatR;
 using Shared.ServiceErrors;
 
-namespace API.Features.Movies.Handlers;
+namespace API.Features.Movies.GetSingleMovie;
 
 public class GetSingleMovieRequestHandler(CinemaDbContext context, ILogger<GetSingleMovieRequestHandler> logger)
     : IRequestHandler<GetSingleMovieRequest, ErrorOr<GetMovieResponse>>

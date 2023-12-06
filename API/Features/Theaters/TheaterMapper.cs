@@ -1,7 +1,5 @@
-﻿using API.Features.Theaters.Requests;
-using API.Features.Theaters.Responses;
+﻿using API.Features.Theaters.CreateTheater;
 using API.Models.Domain;
-using ErrorOr;
 
 namespace API.Features.Theaters;
 

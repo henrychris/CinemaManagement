@@ -1,14 +1,12 @@
 ﻿using API.Data;
 using API.Extensions;
-using API.Features.Theaters.Requests;
-using API.Features.Theaters.Responses;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Shared.ServiceErrors;
 
-namespace API.Features.Theaters.Handlers;
+namespace API.Features.Theaters.CreateTheater;
 
 public class CreateTheaterRequestHandler(
     CinemaDbContext context,

@@ -1,3 +1,3 @@
-﻿namespace API.Features.Movies.Responses;
+﻿namespace API.Features.Movies.CreateMovie;
 
 public record CreateMovieResponse(string MovieId);

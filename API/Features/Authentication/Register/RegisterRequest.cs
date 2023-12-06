@@ -1,5 +1,4 @@
-﻿using API.Features.Authentication.Responses;
-using MediatR;
+﻿using MediatR;
 using ErrorOr;
 
 namespace API.Features.Authentication.Register;

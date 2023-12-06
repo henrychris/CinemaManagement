@@ -1,11 +1,9 @@
 ﻿using API.Data;
-using API.Features.Theaters.Requests;
-using API.Features.Theaters.Responses;
 using ErrorOr;
 using MediatR;
 using Shared.ServiceErrors;
 
-namespace API.Features.Theaters.Handlers;
+namespace API.Features.Theaters.GetSingleTheater;
 
 public class GetSingleTheaterRequestHandler(CinemaDbContext context, ILogger<GetSingleTheaterRequestHandler> logger)
     : IRequestHandler<GetSingleTheaterRequest, ErrorOr<GetTheaterResponse>>

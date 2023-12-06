@@ -1,4 +1,4 @@
-﻿namespace API.Features.Theaters.Responses;
+﻿namespace API.Features.Theaters;
 
 public record GetTheaterResponse(
     string TheatreId,

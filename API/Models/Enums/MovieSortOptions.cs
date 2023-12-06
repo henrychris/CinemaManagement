@@ -1,4 +1,4 @@
-﻿namespace API.Features.Movies;
+﻿namespace API.Models.Enums;
 
 public enum MovieSortOptions
 {

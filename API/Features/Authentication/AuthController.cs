@@ -2,7 +2,6 @@
 using API.Extensions;
 using API.Features.Authentication.Login;
 using API.Features.Authentication.Register;
-using API.Features.Authentication.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
