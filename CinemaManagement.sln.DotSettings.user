@@ -1,5 +1,8 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\user\AppData\Local\JetBrains\Rider2023.3\resharper-host\temp\Rider\vAny\CoverageData\_CinemaManagement.978793497\Snapshot\snapshot.utdcvr</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=348e87f8_002D417e_002D4116_002Dadc2_002D8ef698fb12e6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Solution /&gt;&#xD;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=395042a4_002D063e_002D4839_002D9279_002Dee2ead85fa30/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CreateTheater_CreateMultipleStandardTheaters_IdIncrementsCorrectly" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::ACD3A607-09C5-4E0D-B49B-97C6D2DCDDF4::net8.0::CinemaManagement.API.Tests.IntegrationTests.Theaters.TheatersControllerTests.CreateTheater_CreateMultipleStandardTheaters_IdIncrementsCorrectly&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	</wpf:ResourceDictionary>
