@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using API.Features.Theaters;
 using API.Features.Theaters.CreateTheater;
 using API.Models.Enums;
 using FluentAssertions;
@@ -55,12 +56,33 @@ public class TheatersControllerTests : IntegrationTest
     [Test]
     public async Task GetTheater_TheaterExists_ReturnHttpOk()
     {
+        // Arrange
+        await AuthenticateAsync(UserRoles.Admin);
 
+        // Act
+        var act = await TestClient.PostAsJsonAsync("Theaters", _createStandardTheaterRequest);
+        var response = await act.Content.ReadFromJsonAsync<ApiResponse<CreateTheaterResponse>>();
+
+        var getAct = await TestClient.GetAsync($"Theaters/{response!.Data!.TheaterId}");
+        var getResponse = await getAct.Content.ReadFromJsonAsync<ApiResponse<GetTheaterResponse>>();
+
+        // Assert
+        act.EnsureSuccessStatusCode();
+        act.StatusCode.Should().Be(HttpStatusCode.Created);
+        getAct.EnsureSuccessStatusCode();
+        getResponse!.Data!.TheatreId.Should().Be(response.Data.TheaterId);
     }
 
     [Test]
     public async Task GetTheater_TheaterDoesNotExist_ReturnNotFound()
     {
+        // Arrange
+        await AuthenticateAsync(UserRoles.Admin);
 
+        // Act
+        var getAct = await TestClient.GetAsync($"Theaters/DoesNotExist");
+
+        // Assert
+        getAct.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 }
