@@ -1,4 +1,5 @@
-﻿using API.Features.Movies.Requests;
+﻿using API.Extensions;
+using API.Features.Movies.Requests;
 using API.Models.Enums;
 using FluentValidation;
 using Shared;
@@ -44,7 +45,7 @@ public class CreateMovieRequestValidator : AbstractValidator<CreateMovieRequest>
     private static bool AreAllGenresValid(string[] selectedGenres)
     {
         // Check if all items in selectedGenres are present in allGenres
-        var allValid = selectedGenres.All(genre => Genres.AllGenres.Contains(genre));
+        var allValid = selectedGenres.All(genre => Genres.AllGenres.Contains(genre.FirstCharToUpper()));
 
         return allValid;
     }
