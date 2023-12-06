@@ -11,26 +11,26 @@ namespace CinemaManagement.API.Tests.IntegrationTests.Features.Movies;
 
 public class MoviesControllerTests : IntegrationTest
 {
-    private static readonly string[] _kotFmGenres = ["Crime", "Drama", "History"];
-    private static readonly string[] _oppGenres = ["Drama", "History"];
+    private static readonly string[] KotFmGenres = ["Crime", "Drama", "History"];
+    private static readonly string[] OppGenres = ["Drama", "History"];
 
-    private static readonly CreateMovieRequest _createMovieRequest = new(
+    private static readonly CreateMovieRequest CreateMovieRequest = new(
         "Killers Of The Flower Moon",
         "When oil is discovered in 1920s Oklahoma under Osage Nation land, the Osage people are murdered " +
         "one by one—until the FBI steps in to unravel the mystery.",
         206,
         new DateTime(2023, 10, 20),
-        _kotFmGenres,
+        KotFmGenres,
         8,
         "Martin Scorsese"
     );
 
-    private static readonly CreateMovieRequest _createOtherMovieRequest = new(
+    private static readonly CreateMovieRequest CreateOtherMovieRequest = new(
         "Oppenheimer",
         "The story of J. Robert Oppenheimer's role in the development of the atomic bomb during World War II.",
         181,
         new DateTime(2023, 07, 21),
-        _oppGenres,
+        OppGenres,
         8,
         "Christopher Nolan"
     );
@@ -42,7 +42,7 @@ public class MoviesControllerTests : IntegrationTest
         await AuthenticateAsync(UserRoles.Admin);
 
         // Act
-        var act = await TestClient.PostAsJsonAsync("Movies", _createMovieRequest);
+        var act = await TestClient.PostAsJsonAsync("Movies", CreateMovieRequest);
         var response = await act.Content.ReadFromJsonAsync<ApiResponse<CreateMovieResponse>>();
 
         var getAct = await TestClient.GetAsync($"Movies/{response!.Data!.MovieId}");
@@ -84,7 +84,7 @@ public class MoviesControllerTests : IntegrationTest
         const string newTitle = "New Title";
 
         // Act
-        var createAct = await TestClient.PostAsJsonAsync("Movies", _createMovieRequest);
+        var createAct = await TestClient.PostAsJsonAsync("Movies", CreateMovieRequest);
         var createResponse = await createAct.Content.ReadFromJsonAsync<ApiResponse<CreateMovieResponse>>();
 
         var updateAct =
@@ -103,7 +103,7 @@ public class MoviesControllerTests : IntegrationTest
         getResponse!.Data.Should().NotBeNull();
         getResponse.Data!.Title.Should().Be(newTitle);
         // original values should be unchanged
-        getResponse.Data.Description.Should().Be(_createMovieRequest.Description);
+        getResponse.Data.Description.Should().Be(CreateMovieRequest.Description);
     }
 
     [Test]
@@ -128,7 +128,7 @@ public class MoviesControllerTests : IntegrationTest
         await AuthenticateAsync(UserRoles.Admin);
 
         // Act
-        var act = await TestClient.PostAsJsonAsync("Movies", _createMovieRequest);
+        var act = await TestClient.PostAsJsonAsync("Movies", CreateMovieRequest);
         var response = await act.Content.ReadFromJsonAsync<ApiResponse<CreateMovieResponse>>();
 
         // Assert
@@ -148,7 +148,7 @@ public class MoviesControllerTests : IntegrationTest
         await AuthenticateAsync(UserRoles.Admin);
 
         // Act
-        var act = await TestClient.PostAsJsonAsync("Movies", _createMovieRequest);
+        var act = await TestClient.PostAsJsonAsync("Movies", CreateMovieRequest);
         var response = await act.Content.ReadFromJsonAsync<ApiResponse<CreateMovieResponse>>();
 
         var deleteAct = await TestClient.DeleteAsync($"Movies/{response!.Data!.MovieId}");
@@ -179,8 +179,8 @@ public class MoviesControllerTests : IntegrationTest
         await AuthenticateAsync(UserRoles.Admin);
 
         // Act
-        var act = await TestClient.PostAsJsonAsync("Movies", _createMovieRequest);
-        var otherAct = await TestClient.PostAsJsonAsync("Movies", _createOtherMovieRequest);
+        var act = await TestClient.PostAsJsonAsync("Movies", CreateMovieRequest);
+        var otherAct = await TestClient.PostAsJsonAsync("Movies", CreateOtherMovieRequest);
 
         var getAct = await TestClient.GetAsync("Movies/all");
         var getRes = await getAct.Content.ReadFromJsonAsync<ApiResponse<PagedResponse<GetMovieResponse>>>();
