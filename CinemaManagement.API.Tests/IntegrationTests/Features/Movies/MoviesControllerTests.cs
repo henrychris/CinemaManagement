@@ -35,7 +35,7 @@ public class MoviesControllerTests : IntegrationTest
     );
 
     [Test]
-    public async Task CreateMovie_ValidRequest_ReturnsHttpOk()
+    public async Task CreateMovie_ValidRequest_ReturnsHttpCreated()
     {
         // Arrange
         await AuthenticateAsync(UserRoles.Admin);
