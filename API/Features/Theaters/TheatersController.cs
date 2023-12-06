@@ -1,5 +1,6 @@
 ﻿using API.Extensions;
 using API.Features.Theaters.CreateTheater;
+using API.Features.Theaters.GetAllTheaters;
 using API.Features.Theaters.GetSingleTheater;
 using API.Models.Enums;
 using MediatR;
@@ -33,6 +34,18 @@ public class TheatersController(IMediator mediator) : BaseController
     public async Task<IActionResult> GetSingleTheater(string id)
     {
         var result = await mediator.Send(new GetSingleTheaterRequest(id));
+        return result.Match(
+            _ => Ok(result.ToSuccessfulApiResponse()),
+            ReturnErrorResponse);
+    }
+
+
+    [Authorize(Roles = UserRoles.Admin)]
+    [HttpGet("all")]
+    [ProducesResponseType(typeof(PagedResponse<GetTheaterResponse>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllTheaters([FromQuery] GetAllTheatersRequest request)
+    {
+        var result = await mediator.Send(request);
         return result.Match(
             _ => Ok(result.ToSuccessfulApiResponse()),
             ReturnErrorResponse);

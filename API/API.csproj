@@ -38,7 +38,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\Theaters\GetAllTheaters\" />
+      <EditorConfigFiles Remove="C:\Users\user\Documents\GitHub\CinemaManagement\API\.editorconfig" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="C:\Users\user\Documents\GitHub\CinemaManagement\API\.editorconfig" />
     </ItemGroup>
 
 </Project>

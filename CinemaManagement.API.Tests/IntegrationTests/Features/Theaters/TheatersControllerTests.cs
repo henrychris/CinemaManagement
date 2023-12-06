@@ -85,4 +85,26 @@ public class TheatersControllerTests : IntegrationTest
         // Assert
         getAct.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
+    
+    [Test]
+    public async Task GetAllTheaters_TheatersExist_ReturnsListOfTheaters()
+    {
+        // Arrange
+        await AuthenticateAsync(UserRoles.Admin);
+
+        // Act
+        var act = await TestClient.PostAsJsonAsync("Theaters", _createStandardTheaterRequest);
+        var otherAct = await TestClient.PostAsJsonAsync("Theaters", _createAnotherStandardTheaterRequest);
+
+        var getAct = await TestClient.GetAsync("Theaters/all");
+        var getRes = await getAct.Content.ReadFromJsonAsync<ApiResponse<PagedResponse<GetTheaterResponse>>>();
+
+        // Assert
+        act.StatusCode.Should().Be(HttpStatusCode.Created);
+        otherAct.StatusCode.Should().Be(HttpStatusCode.Created);
+        getAct.EnsureSuccessStatusCode();
+        getAct.StatusCode.Should().Be(HttpStatusCode.OK);
+        getRes!.Success.Should().BeTrue();
+        getRes.Data!.TotalCount.Should().Be(2);
+    }
 }
