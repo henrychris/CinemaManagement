@@ -1,9 +1,9 @@
 ﻿namespace API.Models.Enums;
 
-public static class ScreenTypes
+public enum ScreenTypes
 {
-    public const string Standard = nameof(Standard);
+    Standard,
     // ReSharper disable once InconsistentNaming
-    public const string IMAX = nameof(IMAX);
-    public const string ThreeD = "3D";
+    IMAX,
+    ThreeD
 }
