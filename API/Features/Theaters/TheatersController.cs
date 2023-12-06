@@ -28,6 +28,7 @@ public class TheatersController(IMediator mediator) : BaseController
             ReturnErrorResponse);
     }
 
+    [Authorize(Roles = UserRoles.Admin)]
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(ApiResponse<GetTheaterResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetSingleTheater(string id)
