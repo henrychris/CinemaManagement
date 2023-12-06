@@ -3,7 +3,7 @@ using Shared;
 
 namespace API.Models.Domain;
 
-public class ShowTime
+public class Screening
 {
     // todo: create a showtimeID
     // ST-MMDDTime
@@ -17,9 +17,7 @@ public class ShowTime
 
     [MaxLength(DomainConstants.MaxIdLength)]
     public required string MovieId { get; set; }
-
-    public Theater Theater { get; set; } = null!;
-
+    
     [MaxLength(DomainConstants.MaxIdLength)]
     public required string TheatreId { get; set; }
 

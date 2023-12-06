@@ -14,6 +14,6 @@ public class CinemaDbContext(DbContextOptions<CinemaDbContext> options) : Identi
 
     public DbSet<Movie> Movies { get; set; } = null!;
     public DbSet<Seat> Seats { get; set; } = null!;
-    public DbSet<ShowTime> ShowTimes { get; set; } = null!;
+    public DbSet<Screening> Screenings { get; set; } = null!;
     public DbSet<Theater> Theaters { get; set; } = null!;
 }

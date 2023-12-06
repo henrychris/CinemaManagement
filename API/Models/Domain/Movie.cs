@@ -26,7 +26,7 @@ public class Movie(
     public DateTime ReleaseDate { get; set; } = releaseDate;
 
     // navigation property
-    public List<ShowTime> ShowTimes { get; set; } = [];
+    public List<Screening> Screenings { get; set; } = [];
 
     private static string GenerateMovieId(string title, DateTime releaseDate)
     {

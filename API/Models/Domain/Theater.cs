@@ -15,5 +15,5 @@ public class Theater
     public required string ScreenType { get; set; } = ScreenTypes.Standard.ToString();
     public required int AvailableSeats { get; set; }
 
-    public List<ShowTime> ShowTimes { get; set; } = [];
+    public List<Screening> Screenings { get; set; } = [];
 }
