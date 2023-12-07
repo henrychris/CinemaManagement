@@ -168,6 +168,7 @@ public static class StartupExtensions
     private static void RegisterServices(this IServiceCollection services)
     {
         services.AddScoped<ICurrentUser, CurrentUser>();
+        services.AddSingleton(TimeProvider.System);
     }
 
     private static void AddFeatures(this IServiceCollection services)
