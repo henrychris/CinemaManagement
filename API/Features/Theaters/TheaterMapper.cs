@@ -8,12 +8,12 @@ public static class TheaterMapper
     public static Theater ToTheaterObject(CreateTheaterRequest request, string generatedTheaterId)
     {
         return new Theater
-        {
-            TheaterId = generatedTheaterId,
-            Name = generatedTheaterId,
-            ScreenType = request.ScreenType,
-            AvailableSeats = request.AvailableSeats
-        };
+        (
+            theaterId: generatedTheaterId,
+            name: generatedTheaterId,
+            screenType: request.ScreenType,
+            availableSeats: request.AvailableSeats
+        );
     }
 
     public static GetTheaterResponse ToGetTheaterResponse(Theater theater)
