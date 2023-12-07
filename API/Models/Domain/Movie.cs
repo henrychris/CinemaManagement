@@ -4,26 +4,41 @@ using Shared;
 
 namespace API.Models.Domain;
 
-public class Movie(
-    string title,
-    string description,
-    int durationInMinutes,
-    DateTime releaseDate,
-    string[] genres,
-    int rating,
-    string director)
+public class Movie
 {
+    public Movie(string title,
+        string description,
+        int durationInMinutes,
+        DateTime releaseDate,
+        string[] genres,
+        int rating,
+        string director)
+    {
+        MovieId = GenerateMovieId(title, releaseDate);
+        Title = title;
+        Description = description;
+        Director = director;
+        DurationInMinutes = durationInMinutes;
+        Rating = rating;
+        Genres = genres;
+        ReleaseDate = releaseDate;
+    }
+
+    public Movie()
+    {
+    }
+
     [Key, MaxLength(DomainConstants.MaxIdLength)]
-    public string MovieId { get; init; } = GenerateMovieId(title, releaseDate);
+    public string MovieId { get; init; }
 
-    [MaxLength(DomainConstants.MaxLength)] public string Title { get; set; } = title;
-    [MaxLength(DomainConstants.MaxLength)] public string Description { get; set; } = description;
-    [MaxLength(DomainConstants.MaxLength)] public string Director { get; set; } = director;
+    [MaxLength(DomainConstants.MaxLength)] public string Title { get; set; }
+    [MaxLength(DomainConstants.MaxLength)] public string Description { get; set; }
+    [MaxLength(DomainConstants.MaxLength)] public string Director { get; set; }
 
-    public int DurationInMinutes { get; set; } = durationInMinutes;
-    public int Rating { get; set; } = rating;
-    public string[] Genres { get; set; } = genres;
-    public DateTime ReleaseDate { get; set; } = releaseDate;
+    public int DurationInMinutes { get; set; }
+    public int Rating { get; set; }
+    public string[] Genres { get; set; }
+    public DateTime ReleaseDate { get; set; }
 
     // navigation property
     public List<Screening> Screenings { get; set; } = [];

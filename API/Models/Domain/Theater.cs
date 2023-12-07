@@ -6,14 +6,26 @@ namespace API.Models.Domain;
 
 public class Theater
 {
+    public Theater()
+    {
+    }
+
+    public Theater(string theaterId, string name, string screenType, int availableSeats)
+    {
+        TheaterId = theaterId;
+        Name = name;
+        ScreenType = screenType;
+        AvailableSeats = availableSeats;
+    }
+
     [Key, MaxLength(DomainConstants.MaxIdLength)]
-    public required string TheaterId { get; set; }
+    public string TheaterId { get; set; }
 
     [MaxLength(DomainConstants.MaxNameLength)]
-    public required string Name { get; set; }
+    public string Name { get; set; }
     [MaxLength(DomainConstants.MaxEnumLength)]
-    public required string ScreenType { get; set; } = ScreenTypes.Standard.ToString();
-    public required int AvailableSeats { get; set; }
+    public string ScreenType { get; set; } = ScreenTypes.Standard.ToString();
+    public int AvailableSeats { get; set; }
 
     public List<Screening> Screenings { get; set; } = [];
 }
