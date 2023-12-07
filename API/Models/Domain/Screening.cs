@@ -3,23 +3,26 @@ using Shared;
 
 namespace API.Models.Domain;
 
-public class Screening
+public class Screening(DateTime screeningDate, string movieId, string theatreId, DateTime startTime, DateTime endTime)
 {
-    // todo: create a showtimeID
-    // ST-MMDDTime
-    // ST-Nov-03-1430
     [Key, MaxLength(DomainConstants.MaxIdLength)]
-    public required string ShowtimeId { get; set; }
-
-    public DateTime ScreeningDate { get; set; }
-
-    public Movie Movie { get; set; } = null!;
+    public string ShowtimeId { get; init; } = CreateScreeningId(theatreId, screeningDate);
+    public DateTime ScreeningDate { get; set; } = screeningDate;
 
     [MaxLength(DomainConstants.MaxIdLength)]
-    public required string MovieId { get; set; }
-    
+    public string MovieId { get; init; } = movieId;
+
     [MaxLength(DomainConstants.MaxIdLength)]
-    public required string TheatreId { get; set; }
+    public string TheatreId { get; init; } = theatreId;
+
+    public DateTime StartTime { get; set; } = startTime;
+    public DateTime EndTime { get; set; } = endTime;
 
     public List<Seat> Seats { get; set; } = [];
+
+    private static string CreateScreeningId(string theaterId, DateTime screeningDate)
+    {
+        var randomPart = Guid.NewGuid().ToString()[..4];
+        return $"ST-{theaterId}-{screeningDate:yyyyMMM-ddHH}-{randomPart}";
+    }
 }
