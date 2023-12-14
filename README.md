@@ -1,8 +1,8 @@
-
 # Project Title
 
-A brief description of what this project does and who it's for
-
+This API is based on a take home interview task found
+on [Reddit](https://www.reddit.com/r/dotnet/comments/1841x0f/does_this_takehome_project_look_okay/). The application
+allows users to search available movies, view showtimes, reserve seats and complete bookings.
 
 ## API Documentation
 
@@ -10,45 +10,39 @@ A brief description of what this project does and who it's for
 
 ## Run Locally
 
-Clone the project
+Clone the project and Go to the project directory
 
 ```bash
-  git clone https://link-to-project
+  cd CinemaManagement
 ```
-
-Go to the project directory
+Run Docker compose
 
 ```bash
-  cd my-project
+  docker compose up
 ```
 
-Install dependencies
+View the swagger document
 
 ```bash
-  npm install
+  https://linktodocumentation
 ```
-
-Start the server
-
-```bash
-  npm run start
-```
-
 
 ## Secrets
 
-To run this project, you will need to use the dotnet secrets tool
+To run this project, you will need to use the dotnet secrets tool.
+The secrets required are:
 
-`API_KEY`
+```json
 
-`ANOTHER_API_KEY`
-
+{
+  "": ""
+}
+```
 
 ## Running Tests
 
-To run tests, run the following command
+To run tests, run the following command in the parent directory.
 
 ```bash
   dotnet test
 ```
-[Test Documentation](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-test#examples)
