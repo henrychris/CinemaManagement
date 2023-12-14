@@ -1,0 +1,21 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  api:
+    build:
+      context: "/home/henry/Documents/GitHub/CinemaManagement"
+      dockerfile: "API/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/API.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "api:dev"
+    ports: []
+    volumes:
+    - "/home/henry/.microsoft/usersecrets:/home/app/.microsoft/usersecrets"
+    - "/home/henry/.nuget/packages:/home/app/.nuget/packages"
+    - "/home/henry/Documents/GitHub/CinemaManagement/API:/app:rw"
+    - "/home/henry/Documents/GitHub/CinemaManagement:/src:rw"
+    working_dir: "/app"

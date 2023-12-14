@@ -1,0 +1,11 @@
+﻿services:
+  database:
+    image: "postgres:11.22-bullseye"
+    container_name: database
+    ports:
+      - "5432:5432"
+    environment:
+      - ACCEPT_EULA=y
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=testPassword123
+      - POSTGRES_DB=CinemaDB
